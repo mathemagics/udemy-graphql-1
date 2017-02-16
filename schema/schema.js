@@ -55,13 +55,30 @@ const RootQuery = new GraphQLObjectType({
     company: {
       type: CompanyType,
       args: { id: { type: GraphQLString } },
-      resolve(parentVaue, args) {
+      resolve(parentValue, args) {
         return axios.get(`http://localhost:3000/companies/${args.id}`)
           .then( resp => resp.data);
       }
     }
   }
 });
+
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        firstName: { type: GraphQLString },
+        age: { type: GraphQLInt },
+        companyId: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        
+      }
+    }
+  }
+})
 
 module.exports = new GraphQLSchema({
   query: RootQuery
